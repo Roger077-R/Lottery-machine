@@ -42,7 +42,7 @@ public class LotteryDraw extends JFrame {
         drawButton = new JButton("抽签");
         add(drawButton, BorderLayout.SOUTH);
 
-        //创建结果标签，设置文本，添加到顶部
+        //创建结果标签，设置文本，添加到顶部，创建空的文本标签为了后续可以加内容，与JTextField的区别是JTextField是输入框，JLabel是显示文本的标签
         resultLabel = new JLabel("", SwingConstants.CENTER);
         resultLabel.setFont(new Font("微软雅黑", Font.BOLD, 18));
         add(resultLabel, BorderLayout.NORTH);
