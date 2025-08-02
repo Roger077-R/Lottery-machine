@@ -1,7 +1,5 @@
 package lottery;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -50,9 +48,7 @@ public class LotteryDraw extends JFrame {
         add(resultLabel, BorderLayout.NORTH);//将结果标签添加到顶部
 
         //添加按钮点击事件
-        drawButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {//重写actionPerformed方法，当按钮被点击时，执行以下代码
+        drawButton.addActionListener(event -> {//用lambda表达式重写ActionPerformed方法
                 if (!initialized || candidates == null) {//如果未初始化或候选人列表为空
                     String text = inputArea.getText().trim();//获取输入框中的文本并去除前后空格
                     if (text.isEmpty()) {//如果文本为空
@@ -85,13 +81,17 @@ public class LotteryDraw extends JFrame {
                 String winner = candidates.remove(idx);//从候选人列表中移除一个随机元素
                 poolModel.removeElement(winner);//从列表模型中移除一个随机元素
                 resultLabel.setText("抽中：" + winner);//设置结果标签的文本为抽中的元素
-            }
-        });
+            });
+            
+        
 
         //添加文本输入区变化事件
         inputArea.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
             public void changedUpdate(javax.swing.event.DocumentEvent e) { resetPool(); }
+            @Override
             public void removeUpdate(javax.swing.event.DocumentEvent e) { resetPool(); }
+            @Override
             public void insertUpdate(javax.swing.event.DocumentEvent e) { resetPool(); }
             private void resetPool() {
                 initialized = false;
@@ -107,6 +107,7 @@ public class LotteryDraw extends JFrame {
     public static void main(String[] args) {
         //使用SwingUtilities.invokeLater()方法在事件调度线程中创建和显示窗口,保证线程安全
         SwingUtilities.invokeLater(() -> {
+        
             new LotteryDraw();
         });
     }
